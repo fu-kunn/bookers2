@@ -1,16 +1,71 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
     <title>Bookers2</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+
   </head>
 
   <body>
+    <header>
+
+    </header>
+
+    <main>
+      <p id="notice"></p>
+      <div class="container">
+        <div class="row">
+          <div class="mx-auto col-11 col-sm-10 col-lg-8 col-xl-6">
+            <h1>welcome to
+            <i class="fas fa-book"></i>
+            <strong>Bookers</strong>
+              !!
+            </h1>
+            <p>
+               In
+            <i class="fas fa-book"><before></before></i>
+            <strong>Bookers</strong>
+             ,
+            </p>
+            <p>you can share and exchange your opinions , inpressions , and emotions</p>
+            <p>about various books!</p>
+             <% if user_signed_in? %>
+            <li>
+            <%= link_to"Log out", destroy_user_session_path, method: :delete %>
+            </li>
+            <% else %>
+            <li>
+            <%= link_to"Log in", new_user_session_path %>
+            </li>
+            <li>
+            <%= link_to"Sign up", new_user_registration_path %>
+            </li>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <div class="container mt-5">
+        <div class="row">
+          <div class="mx-auto">
+            <p>CopyRight Infratop.inc</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+
     <%= yield %>
   </body>
 </html>
