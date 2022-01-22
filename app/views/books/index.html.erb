@@ -18,7 +18,7 @@
     <table class="table">
      <tbody>
       <tr>introduction</tr>
-      <tr></tr>
+      <tr><%= @user.introduction %></tr>
      </tbody>
     </table>
 
@@ -32,6 +32,16 @@
 
 
     <h2>New book</h2>
+
+    <% if @book.errors.any? %>
+     <%= @book.errors.count %>件のエラーが発生しました
+     <ul>
+      <% @book.errors.full_messages.each do |message| %>
+       <li><%= message %></li>
+      <% end %>
+     </ul>
+    <% end %>
+
      <div class="form-group">
       <label for="book_title">Title</label>
       <%= f.text_field :title %>
@@ -41,20 +51,36 @@
       <label for="book_opnion">Opnion</label>
       <%= f.text_area :body %>
      </div>
-
-
      <div class="form-group">
       <%= f.submit 'Create Book', class:"btn btn-success" %>
      </div>
-
     </div>
-    <% end %>
 
 
 
     <div class="col-lg-8 offset-md-1">
       <h2>Book detail</h2>
+      <table class="table table-hover table-inverse">
+       <thead>
+        <tr>
+          <th></th>
+          <th>Title</th>
+          <th>Opnion</th>
+        </tr>
+       </thead>
+      <tbody>
+      <% @books.each do |book| %>
+        <tr>
+          <th><%= image_tag @user.get_profile_image("40x40") %></th>
+          <th><%= link_to book.title, book_path(book) %></th>
+          <th><%= book.body %></th>
+        </tr>
+      <% end %>
+      </tbody>
+      </table>
+
     </div>
+    <% end %>
 
   </div>
 </div>
