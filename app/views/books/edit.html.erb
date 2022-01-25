@@ -1,4 +1,7 @@
-<h2>Editing Book</h2>
+<div class="container">
+<div class="row">
+<div class="col-sm-12 col-md-8 col-lg-5 px-5 px-sm-0 mx-auto">
+<h1>Editing Book</h2>
 <% if @book.errors.any? %>
      <%= @book.errors.count %>error prohibited this obj from being saved:
      <ul>
@@ -10,12 +13,12 @@
 
 <%= form_with model:@book,url: update_book_path(@book.id), method: :patch, local:true do |f| %>
 <div class="form-group">
-      <label for="book_title">Title</label>
+      <label for="book_title">Title</label></br>
       <%= f.text_field :title %>
      </div>
 
      <div class="form-group">
-      <label for="book_opnion">Opnion</label>
+      <label for="book_opnion">Opnion</label></br>
       <%= f.text_area :body %>
      </div>
 
@@ -30,3 +33,7 @@
 
 </div>
 <% end %>
+
+</div>
+</div>
+</div>

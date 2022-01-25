@@ -1,11 +1,5 @@
-
-<div class="container">
-  <div class="row">
-    <div class="col-lg-3">
-    <%=form_with model:Book.new, local:true do |f| %>
-
     <% if @book.errors.any? %>
-     <%= @book.errors.count %>error prohibited this obj from being saved:
+     <%= @book.errors.count %>件のエラーが発生しました
      <ul>
       <% @book.errors.full_messages.each do |message| %>
        <li><%= message %></li>
@@ -41,7 +35,7 @@
 
 
     <h2>New book</h2>
-
+    <%=form_with model:@newbook, local:true do |f| %>
 
      <div class="form-group">
       <label for="book_title">Title</label></br>
@@ -49,37 +43,11 @@
      </div>
 
      <div class="form-group">
-      <label for="book_opnion">Opnion</label></br>
+      <label for="book_opnion">Opinion</label></br>
       <%= f.text_area :body %>
      </div>
+
      <div class="form-group">
       <%= f.submit 'Create Book', class:"btn btn-success" %>
      </div>
-    </div>
-
-    <div class="col-lg-8 offset-md-1">
-      <h2>Books</h2>
-      <table class="table table-hover table-inverse">
-       <thead>
-        <tr>
-          <th></th>
-          <th>Title</th>
-          <th>Opnion</th>
-        </tr>
-       </thead>
-      <tbody>
-      <% @books.each do |book| %>
-        <tr>
-          <th><%= image_tag book.user.get_profile_image("40x40") %></th>
-          <th><%= link_to book.title, book_path(book) %></th>
-          <th><%= book.body %></th>
-        </tr>
-      <% end %>
-      </tbody>
-      </table>
-
-    </div>
     <% end %>
-
-  </div>
-</div>

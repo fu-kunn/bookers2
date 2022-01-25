@@ -1,13 +1,23 @@
 class UsersController < ApplicationController
-  def show
+ before_action :authenticate_user!
+  def index
+   @users = User.all
    @user = current_user
-   # @user = User.find(params[:id])
-   @books =@user.books
+   @book = Book.new
+  end
+
+
+  def show
+   @book = Book.new
+   @newbook = Book.new
+   @users = User.all
+   @books = Book.all
+   @user = User.find(params[:id])
   end
 
   def edit
    @user = User.find(params[:id])
-   if @book.user == current_user
+   if @user == current_user
    render "edit"
    else
    redirect_to books_path

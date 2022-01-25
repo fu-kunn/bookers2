@@ -1,80 +1,90 @@
+
 <div class="container">
   <div class="row">
     <div class="col-lg-3">
-    <%=form_with model:Book.new, local:true do |f| %>
+    <% if @book.errors.any? %>
+     <%= @book.errors.count %>error prohibited this obj from being saved:
+     <ul>
+      <% @book.errors.full_messages.each do |message| %>
+       <li><%= message %></li>
+      <% end %>
+     </ul>
+    <% end %>
 
     <h2>User info</h2>
 
-    <%= image_tag @user.get_profile_image("63x63") %>
+    <%= image_tag @book.user.get_profile_image("63x63") %>
 
     <table class="table">
      <tbody>
-      <tr>name</tr>
-      <tr><%= @user.name %></tr>
-     </tbody>
-    </table>
-
-    <table class="table">
-     <tbody>
-      <tr>introduction</tr>
-      <tr><%= @user.introduction %></tr>
+      <tr></tr>
+      <tr>
+       <th>name</th>
+       <th><%= @book.user.name %></th>
+      </tr>
+      <tr>
+       <th>introduction</th>
+       <th><%= @book.user.introduction %></th>
+      </tr>
      </tbody>
     </table>
 
     <div class="row">
-     <% if @user.id == current_user.id %>
-      <%= link_to edit_user_path(current_user), class:'btn btn-ouyline-secondary btn-block' do %>
+     <% if @book.user.id == current_user.id %>
+      <%= link_to edit_user_path(current_user), class:'btn btn-outline-secondary btn-block' do %>
       <i class="fas fa-user-cog"></i>
       <% end %>
+     <% end %>
     </div>
 
 
     <h2>New book</h2>
+    <%=form_with model:Book.new, local:true do |f| %>
+
      <div class="form-group">
-      <label for="book_title">Title</label>
+      <label for="book_title">Title</label></br>
       <%= f.text_field :title %>
      </div>
 
      <div class="form-group">
-      <label for="book_opnion">Opnion</label>
+      <label for="book_opnion">Opnion</label></br>
       <%= f.text_area :body %>
      </div>
-
-
      <div class="form-group">
       <%= f.submit 'Create Book', class:"btn btn-success" %>
      </div>
-
     </div>
-    <% end %>
-
 
     <div class="col-lg-8 offset-md-1">
       <h2>Book detail</h2>
 
     <% @books.each do |book| %>
+        <% if book.user == current_user %>
     <table class="table">
      <tbody>
       <tr>
-       <%= image_tag @user.get_profile_image("63x63") %>
-       <%= link_to @user.name, user_path %>
-      </tr>
-      <tr><%= link_to book.title, book_path %></tr>
-      <tr><%= book.body %></tr>
-      <tr>
+       <td>
+       <%= image_tag book.user.get_profile_image("63x63") %></br>
+       <%= link_to @book.user.name, user_path(@book.user) %>
+       </td>
+       <td><%= link_to book.title, book_path %></td>
+       <td><%= book.body %></td>
+       <% if @book.user == current_user %>
+       <td>
         <%= link_to"Edit", edit_book_path, class: 'btn btn-success btn-sm btn-blok sign_up' %>
-      </tr>
-      <tr>
-        <% if @user == current_user %>
+       </td>
+       <td>
         <%= link_to"Destroy", book, class: 'btn btn-danger btn-sm', method: :delete,"data-confirm" => "本当に消しますか？" %>
-        <% end %>
+       </td>
+       <% end %>
       </tr>
      </tbody>
+        <% end %>
     </table>
     <% end %>
 
 
-     <% end %>
     </div>
+    <% end %>
   </div>
 </div>
