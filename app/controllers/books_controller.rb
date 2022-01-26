@@ -24,16 +24,20 @@ before_action :authenticate_user!
     @newbook = Book.new
     @books = Book.all
     @book = Book.find(params[:id])
+    @user = @book.user
   end
 
   def edit
     @book = Book.find(params[:id])
+    if @book.user != current_user
+    redirect_to books_path
+    end
   end
 
   def destroy
     @book = Book.find(params[:id])
     @book.destroy
-    redirect_to book_path
+    redirect_to books_path
   end
 
   def update

@@ -1,7 +1,7 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-lg-3">
+    <div class="col-md-3">
     <%=form_with model:Book.new, local:true do |f| %>
 
     <% if @book.errors.any? %>
@@ -15,11 +15,15 @@
 
     <h2>User info</h2>
 
-    <%= image_tag @user.get_profile_image("63x63") %>
+
 
     <table class="table">
      <tbody>
-      <tr></tr>
+      <tr>
+       <th>
+        <%= image_tag @user.get_profile_image("63x63") %>
+       </th>
+      </tr>
       <tr>
        <th>name</th>
        <th><%= @user.name %></th>
@@ -32,11 +36,10 @@
     </table>
 
     <div class="row">
-     <% if @user.id == current_user.id %>
+     <!--< if @user.id == current_user.id %>-->
       <%= link_to edit_user_path(current_user), class:'btn btn-outline-secondary btn-block' do %>
       <i class="fas fa-user-cog"></i>
       <% end %>
-     <% end %>
     </div>
 
 
@@ -57,7 +60,7 @@
      </div>
     </div>
 
-    <div class="col-lg-8 offset-md-1">
+    <div class="col-md-8 offset-md-1">
       <h2>Books</h2>
       <table class="table table-hover table-inverse">
        <thead>
@@ -70,7 +73,11 @@
       <tbody>
       <% @books.each do |book| %>
         <tr>
-          <th><%= image_tag book.user.get_profile_image("40x40") %></th>
+          <th>
+           <%= link_to user_path(book.user) do %>
+           <%= image_tag book.user.get_profile_image("40x40") %>
+           <% end %>
+           </th>
           <th><%= link_to book.title, book_path(book) %></th>
           <th><%= book.body %></th>
         </tr>
